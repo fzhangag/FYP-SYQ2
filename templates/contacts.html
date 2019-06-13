@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block header %}
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <style>
+
+      </style>
+{% endblock %}
+
+{% block content %}
+      <div class="container-fluid" style="margin-top: 10%">
+        <div class="row">
+          <div class="col-sm-12 offset-md-2 col-md-8">
+            <div class="card">
+              <img class="card-img-top " src={{url_for('static',filename="./Image/HKMAAC.png")}} alt="Card image cap" >
+              <div class="card-body card_height">
+                <table border="0" cellpadding="0" cellspacing="20">
+                    <tbody><tr>
+                        <td valign="top" align="left" style="padding: 15px;" >E-mail</td>
+                        <td align="left"><a class="a2" href="mailto:mediation@hkmaac.org" style="padding: 15px;" >mediation@hkmaac.org</a></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="left" style="padding: 15px;" >Website</td>
+                        <td align="left"><a href="http://hkmaac.org/" style="padding: 15px;" >www.hkmaac.org</a></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="left" style="padding: 15px;" >Office Hours:</td>
+                        <td align="left" style="padding: 15px;padding-bottom: 150px;" >Monday to Friday 9:00am – 6:00pm <br>Saturday, Sunday and Public Holiday (Close) <br>(Except for Mediation Training Sessions)</td>
+                    </tr>
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block other_footers %}
+
+{% endblock %}

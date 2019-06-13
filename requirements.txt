@@ -1,0 +1,13 @@
+nltk==3.3
+Flask==0.12
+Flask_Login==0.4.1
+textblob==0.15.1
+en_core_web_sm==2.0.0
+Flask_SQLAlchemy==2.1
+SQLAlchemy==1.2.11
+spacy==2.0.16
+numpy==1.15.1
+fpdf==1.7.2
+apscheduler==3.6.0
+polyglot==16.7.4
+xlrd==1.2.0

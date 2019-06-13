@@ -1,0 +1,64 @@
+ .divAll{
+   width:800px;
+   font-family:'黑体';
+   margin:50px auto;
+   }
+ #titles{
+   font-weight:bold;
+   font-size:18px;
+   height:50px;
+   line-height:50px;
+   background:#FFF9F3;
+   text-align:center;
+   border:1px solid #CCC;;
+   }
+ #contents{
+    margin-top:20px;
+    background:#FFF9F3;
+    border:1px solid #CCC;;
+    }
+  #form-itemGroup{
+   padding:10px;
+    }
+  #form-itemGroup label{
+    display:inline-block;
+    width:100px;
+    height:32px;
+    line-height:32px;
+    color:#666;
+    text-align:right;
+    }
+  #form-itemGroup .input{
+    width:200px;
+    height:40px;
+    line-height:40px;
+    border:1px solid #CCC;
+    }
+  #form-itemGroup .default{
+    width:200px;
+    height:32px;
+    line-height:32px;
+    color:#999;
+    }
+  #form-itemGroup .error{
+    height:32px;
+    line-height:32px;
+    color:#F00;
+    }
+  #form-itemGroup .success{
+    height:32px;
+    line-height:32px;
+    color:#096;
+    }
+  .divBtn{
+    margin-top:20px;
+    margin-left:200px;
+    width:100px;
+    height:32px;
+    line-height:32px;
+    background-color:#F93;
+    margin-bottom:10px;
+    color:#ffffff;
+    font-weight:bold;
+    border:none;
+    }

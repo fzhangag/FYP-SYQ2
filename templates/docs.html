@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ url_for('static', filename="FAQstatic/css/reset.css") }}"> <!-- CSS reset -->
+	<link rel="stylesheet" href="{{url_for('static', filename="FAQstatic/css/style.css") }}"> <!-- Resource style -->
+	<script src="{{ url_for('static', filename="FAQstatic/js/modernizr.js") }}"></script> <!-- Modernizr -->
+
+	<title>History Contracts</title>
+    <style>
+        a {
+            color:#AA73E5;
+        }
+        .cd-faq-trigger::before, .cd-faq-trigger::after{
+            background: #AA73E5;
+        }
+        .cd-faq-categories a::before{
+            background-color: #AA73E5;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="cd-faq">
+	<ul class="cd-faq-categories">
+		<li><a class="selected" href="#divorce">Divorce Contract</a></li>
+		<li><a href="#employment">Employment Offer letter</a></li>
+	</ul>
+
+	<div class="cd-faq-items">
+
+		<ul id="divorce" class="cd-faq-group">
+			<li class="cd-faq-title"><h2>Divorce Contract</h2></li>
+			{% for doc_d in his_docs_divorce %}
+			<li id="divorce_{{doc_d.count}}">
+				<a class="cd-faq-trigger" href="#0">{{doc_d.name}}</a>
+				<div class="cd-faq-content" id="div_divorce_{{doc_d.count}}">、
+					<iframe src="../static/{{doc_d.path}}" id="frame_divorce_{{doc_d.count}}" height="600px" width="500px" onload="checkFileExistD('{{doc_d.count}}')"></iframe>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+
+		<ul id="employment" class="cd-faq-group">
+			<li class="cd-faq-title"><h2>Employment Offer letter</h2></li>
+			{% for doc_e in his_docs_employ %}
+			<li id="employ_{{doc_e.count}}">
+				<a class="cd-faq-trigger" href="#0">{{doc_e.name}}</a>
+				<div class="cd-faq-content"  id="div_employ_{{doc_e.count}}">
+					<iframe src="../static/{{doc_e.path}}" id="frame_employ_{{doc_e.count}}" height="600px" width="500px" onload="checkFileExistE('{{doc_e.count}}')"></iframe>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>	
+	</div>
+	<a href="#0" class="cd-close-panel">Close</a>
+</section> <!-- cd-faq -->
+
+{% endblock %}
+
+{% block other_footers %}
+    <script src="{{ url_for('static', filename="FAQstatic/js/jquery-2.1.1.js") }}"></script>
+    <script src="{{ url_for('static', filename="FAQstatic/js/query.mobile.custom.min.js") }}"></script>
+    <script src="{{ url_for('static', filename="FAQstatic/js/main.js") }}"></script> <!-- Resource jQuery -->
+    <script type="text/javascript">
+    	function checkFileExistD(index){
+    		var name1 = "frame_divorce_"+index;
+    		var that = document.getElementById(name1).contentDocument.title.indexOf("404");
+    		var file = document.getElementById(name1);
+    		var name2 = "div_divorce_" + index;
+    		var div = document.getElementById(name2);
+    		debugger;
+    		if (that >= 0) {
+    			div.append("<p>no file generated here</p>");
+    			//404
+    			div.remove(file);
+    			
+    		}
+    	};
+
+    	function checkFileExistE(index){
+    		var name1 = "frame_employ_"+index;
+    		var that = document.getElementById(name1).contentDocument.title.indexOf("404");
+    		var file = document.getElementById(name1);
+    		var name2 = "div_employ_" + index;
+    		var div = document.getElementById(name2);
+    		debugger;
+    		if (that >= 0) {
+    			//404
+    			div.remove(file);
+    			div.append("<p>no file generated here</p>")
+    		}
+    	};
+
+
+    </script>
+{% endblock %}

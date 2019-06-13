@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/chat_interface.css") }}">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        #map {
+        height: 100%;
+        z-index: 10000000000 !important;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+        .pac-container {
+        z-index: 10000000000 !important;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .my-skin .layui-layer-btn a {
+        width:40%;
+        background-color: #009688;
+        border: 1px solid #009688;
+        color: #fffadd;
+        }
+
+    </style>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+{% endblock %}
+
+{% block content %}
+<br/>
+    <div class="row">
+        <div class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-1">
+            <div class="row">
+                <div class="chat_window">
+                    {# processing bar#}
+                    <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+                      <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                    </div>
+                    {# processing bar#}
+                    <div class="top_menu">
+                        <div class="title">Law chatbot</div>
+                    </div>
+
+                    <ul class="messages">
+                    </ul>
+                    <div class="layui-btn-group"  style="width:100%; padding-top: 0px">
+                        <button class="layui-btn" onclick="restartChat()" style="width:50%;background-color: #a3d063"><i class="layui-icon" >&#xe669;</i>Restart Chat</button>
+                        <button class="layui-btn" id="re-open" style="width:50%;background-color: #a3d063" value="{{ session['widget'] }}"><i class="layui-icon" >&#xe60e;</i>Open Previous Panel</button>
+                     </div>
+                    <div class="bottom_wrapper clearfix">
+                        <div class="message_input_wrapper">
+                            <input id="msg_input" class="message_input" placeholder="Say Hi to begin chat..." />
+                        </div>
+                        <div class="send_message">
+                            <div class="icon">
+                                <i class="material-icons" style="font-size:31px;">send</i>
+                            </div>
+                             <div class="text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message_template">
+                    <li class="message">
+                        <div class="avatar"></div>
+                        <div class="text_wrapper">
+                            <div class="text"></div>
+                        </div>
+                    </li>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+      //restart the chat
+      function restartChat(){
+            $.post("/restartChat",
+                function(jsondata){
+                    data=jsondata['returnMSG'];
+                    if (data=="home"){
+                        window.location.href="{{url_for('backToHome')}}";
+                    }
+                });
+        }
+    </script>
+
+{% endblock %}
+
+{% block other_footers %}
+    <script src="{{ url_for('static', filename="js/bind.js") }}"></script>
+{% endblock %}

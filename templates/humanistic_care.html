@@ -1,0 +1,300 @@
+{% block header %}
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <style>
+      body{
+        background: #ddd6f3;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #faaca8, #ddd6f3);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #faaca8, #ddd6f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+      .question_color{
+        text-align: center;
+        color: #337ab7;
+        font-size: 20px;
+        font-family: 'Open Sans', sans-serif;
+      }
+      .details_size{
+        color: black;
+        font-size: 15px;
+        font-family: 'Open Sans', sans-serif;
+      }
+      .button_text{
+        font-family: 'Open Sans', sans-serif;
+        color: #337ab7;
+      }
+      .title_height{
+        height: 10px;
+      }
+
+      .hidden {
+      opacity: 0;
+      /* visibility: hidden; */
+      transition: opacity 1.5s ease-out;
+      -webkit-transition: opacity 1.5s ease-out;
+      -moz-transition: opacity 1.5s ease-out;
+      -o-transition: opacity 1.5s ease-out;
+      }
+      .visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 2s ease-out;
+      -webkit-transition: opacity 2s ease-out;
+      -moz-transition: opacity 2s ease-out;
+      -o-transition: opacity 2s ease-out;
+      }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+  <div class="container" style="margin-top: 10%">
+
+    <!--height between nav bar and card!-->
+    <div class="row title_height"></div>
+
+    <!-- introduction -->
+    <div class="card text-center hidden" id="intro">
+      <p class="question_color" style="padding: 25px 50px;">Before starting the conversation, for humanistic reasons, we want to ask you some questions.</p>
+  <!--<First Question, press question jump to description>-->
+      <div class="row justify-content-center">
+        <button class="button_text col-lg-3 col-md-2 col-sm-3 col-10 btn btn-outline-primary " type="button" onclick="Q1()">Start</button>
+      </div>
+    </div>
+
+    <!-- Question div -->
+    <div id="Quest" style="display: none;" class="text-center hidden" >
+      <div class="card text-center">
+      <p class="question_color" id="content" style="padding: 15px 50px;">1.	Do you still have feelings for your partner?</p>
+
+      <p class="details_size text-justify" style="display: none; padding: 15px 50px;" id="Details">
+        <!-- details -->
+      </p>
+      <div class="row">
+        <button onclick="next_q()" class="button_text col-lg-2 col-md-2 col-sm-2 col-10 btn btn-outline-primary offset-lg-2 offset-md-2 offset-sm-2 offset-1 " type="button">Yes</button>
+      <!--<Yes jump to Next question, No jump to another page with contact>-->
+        <button onclick="Detail()" id="D_button" class="button_text col-lg-2 col-md-2 col-sm-2 col-10 btn btn-outline-primary offset-lg-1 offset-md-1 offset-sm-1 offset-1 " type="button">Details</button>
+        <button onclick="No()" class="button_text col-lg-2 col-md-2 col-sm-2 col-10 btn btn-outline-primary offset-lg-1 offset-md-1 offset-sm-1 offset-1" type="button">No</button>
+      </div>
+      </div>
+    </div>
+
+
+  <!-- Fail div -->
+  <div id="No_Answers" class="hidden" style="display: none;">
+    <div class="card">
+      <p class="question_color">Sorry, condsiering your answers, we do not think you are fully prepared. And we recommand you to consider more on this decision. If you persist, you can press the 'continue' button to continue. And you can also press 'skip' and go to the chatbot directly. If you need help, please press 'contact' to see the contact information.
+      </p>
+      <div class="row">
+        <button onclick="Continue()" class="button_text col-lg-2 col-md-2 col-sm-3 col-10 btn btn-outline-primary offset-lg-3 offset-md-3 offset-sm-2 offset-1 " type="button">Continue</button>
+      <!--<Yes jump to Next question, No jump to another page with contact>-->
+        <button onclick="window.location.href='{{url_for('contact')}}'" class="button_text col-lg-2 col-md-2 col-sm-3 col-10 btn btn-outline-primary offset-lg-2 offset-md-2 offset-sm-2 offset-1" type="button">Contacts</button>
+    </div>
+  </div>
+  </div>
+    <div class="row">
+    <button onclick="time_to_divorce()" class="button_text btn btn-link offset-lg-10 offset-md-9 offset-sm-7">Skip All</button>
+    </div>
+  </div>
+
+
+</body>
+<script>
+  var Questions = [
+    "1.	Do you still have feelings for your partner?",
+    "2.	Were you ever really married?",
+    "3.	Are you truly ready for divorce but not just threatening?",
+    "4.	Is this a sincere decision based on self-awareness but not an emotionally reactive decision?",
+    "5. Are you sure your intent in wanting a divorce?",
+    "6.	Have you resolved your internal conflict over the divorce?",
+    "7.	Can you handle the unpleasant consequences of divorce?",
+    "8.	Are you willing to take control of your life in a responsible and mature way?"
+  ];
+
+  //Details content for each question
+  var Details = [
+    "Many people who say they want a divorce still have strong feelings for their partner, but due to an ongoing power struggle in the relationship there is a lack of intimacy and closeness. If this is you, it is best that you work on your relationship prior to deciding to divorce otherwise your feelings of loss will overwhelm you and you may find yourself worse off after the divorce than you are now.<br><br>Celine had been married for seven years to a man she loved, who she considered to be a real sweet, gentle guy. However, she was very unhappy about their financial arrangement. She was the responsible one who paid all the expenses, while he seemed to be forever getting them further into debt. She was very stressed and miserable and saw divorce as her only way out of the financial strain she was under. But because of her feelings for him she was not able to support such a decision or even set a clear boundary, for fear of losing the relationship. With the help of her therapist, Celine recognized that she either needed to either set a clear boundary and be willing to lose the relationship, or else accept that all her hassling was a waste of time.",
+
+    "To be really married a couple must have created a relationship that included an 'us' or a 'we.' Many people who are considering a divorce have never had a marriage that was anything more than two individuals meeting their own needs. They may have raised children and shared a home but they participated in those activities from a competitive rather than unified position. They would ask -- 'Do I want to do this or that', rather than ask 'Is this good for us?' If you have not developed a genuine 'we' in your relationship this would be the time to either commit to learning how to do that or to admit that you have never really had a marriage.<br><br>Even as a therapist who works in the area of divorce, I had a very difficult time admitting that my own marriage of fourteen years was in fact in name only, regardless of the years that we lived under the label of husband and wife. Our pattern was to threaten to break up every few months, and we had a daily ritual of fighting, and agreements that rarely lasted more than a week. I used to joke to my wife that she needed to keep her bags packed just in case she needed to leave quickly. This pattern remained despite the numerous counseling offices we attended. It was not until I was able to acknowledge to myself that I was neither single nor married, that I was in fact nowhere, did any real change occur. We started the real divorce process two months later.",
+
+    "Divorce is often threatened, especially in heated marital arguments for the following reasons;<br><br>•	Out of anger and frustration.<br>•	To gain power and control over the other person, to get them to see things your way.<br>•	To finally be taken seriously that you want real change.<br>•	As a wake-up call that the marriage is faltering.<br><br>People who consistently threaten divorce lose credibility with themselves and their partner. If the person is not merely threatening, but is genuinely ready for a divorce, they can sustain the following thought in their own mind, 'That I wish to close a chapter of my life, because I am at peace with the fact that there is no more that I can do or give to this relationship.' They will discuss this appropriately with their spouse without any blame.",
+
+    "To be ready to divorce your partner means being able to make a clear, unemotional decision that you can support over time. Divorce means being able to let go of all strong emotional attachments to the other person, the loving ones as well as the hostile and hurtful ones. Emotionally charged decisions do not last and if acted on do not resolve the underlying problem. People who divorce out of anger stay angry even after the divorce is over.<br><br>A woman came to see me as her divorce coach after she had been divorced for five years because she was still struggling with the effects of her divorce. Her problem was that she was still feeling rage toward her ex-husband and found herself hating him on a weekly basis. I said to her, 'It sounds like you are still married.' She insisted that this was incorrect due to the hatred she had for him. I responded that the hate she was experiencing essentially reflected a great passion toward him despite her hateful label, which I doubted any current man could match. I stated that only someone who is married could have such a passion. From that moment on she began to emotionally detach from her ex-husband and work towards, with the help of the coaching, a real divorce.<br><br>A statement that would indicate that you are making a sincere, rather than an emotionally reactive decision is, 'I acknowledge that you are a person in your own right with your own personality, hopes and dreams, I can respect you for that, but I no longer want to be married to you.'<br><br>To be ready for divorce is to have a lower emotional attachment to the person you are separating from, otherwise, the divorce process itself will be roller coaster of intense feelings, including anger, distrust and hurt.",
+
+    "Any agenda, other than ending the marriage, is an indication that you are not ready to divorce. If you are hoping that through the divorce the other person will change and start treating you better, realize how much they have lost or pay for how much they have hurt you, you are getting a divorce for the wrong reason. Divorce has no power to right wrongs nor change people's hearts and minds. Divorce can only do one thing, end a marriage, and in so doing free each person to make new attachments to new people.",
+
+    "Everyone who goes through a divorce is conflicted. People can feel guilty at the same time as they are sure that they want to end the relationship. Or they can feel betrayed and at the same time recognize that their life will be better once they are out of the relationship. Recognizing the conflict and owning that different parts of you will be struggling with the impact of divorce, at different times, is part of the process of getting ready for divorce.<br><br>Rick was having the hardest time deciding what to do about his marriage. For the longest time he claimed that he was confused, conflicted, and torn. He couldn't seem to feel at peace being in the marriage or in leaving. His wife was verbally beating him up over his indecisiveness, often calling him a wimp. As his therapist, I asked to speak to the part of him who wanted out and I told him I didn't want to hear from any other part. He started to speak quite clearly about feeling no passion for his wife, but within a minute he began to hedge this voice with statements like ‘She is a good mother, or she is dependable.’ Each time he would attempt to dilute in this way, I would have to say that I only wanted to hear from the voice that wants ‘out.’ As the wanting ‘out’ voice became more and more expressive, he began to visibly sweat. I asked, ‘What is happening?’ Finally, he said, ‘I am feeling guilty.’ Where is that coming from?’ I asked He said, ‘I made a promise that I would never follow the path of my father who left my mother.’ With this opposing voice sorted out and clarified, he was no longer confused. He was able to see that this old promise to himself was in conflict with his present desire to end his marriage. As he continued to work through those two opposing parts of himself, he was finally able to make a decision that he felt at peace with and three months later he began the divorce proceedings.",
+
+    "Divorce brings change and grief because it is the loss of the ‘happy family’ dream. Hurts , disappointments, loneliness, failure, rejection, inadequacy can all take hold of the psyche when we are in this extremely vulnerable passage. To be ready for the ups and downs of divorce it is necessary to have a support system of family and friends who will be there to help you emotionally and practically when needed.<br><br>One of the hardest consequences of divorce is needing to face another person's pain, be it your children's, your family or friends because divorce affects so many people's lives. If you are the one choosing the divorce you will have to hold on to your decision and the ending of your marriage in the face of all these people and circumstances. If you are the one who does not want the divorce, but your spouse wants to proceed, you will still need to get ready to accept the following consequences of a failed marriage. To know if you are ready, ask yourself if you are prepared for the following changes;<br><br>•	If you don't want changes to your finances, lifestyle or traditions then you are not ready for divorce;<br>•	If you cannot accept your children's sadness and anger then you are not ready for divorce<br>•	If you cannot acceptance times of insecurity, fear and the unknown then you are not ready for divorce<br>•	If you are not willing to let go of your spouse mentally, emotionally and spiritually then you are not ready for divorce.<br><br>I recall one woman who was totally bored with her one dimensional passive husband and she expressed what seemed like a very strong desire to leave him after 20 years of marriage. Each time she would tell me that she was going to tell him she wanted to separate, she would back off long before she got home. To help her recognize her own struggle we made a list of the consequences of divorce, and the one thing she said she could never accept was the fact that her kids would hate her for leaving their father. She said she could not risk that, no matter how bored she was. Once she owned that this unpleasant consequence of her divorcing him would be more than she could stand, she was able to think of other ways to resolve the problem of being bored in her marriage. Over time she became more independent and started to travel and develop interests of her own.",
+
+    "Whether you are the one who wants the divorce or the one who is having to respond to your spouse wanting the divorce both situations have one thing in common, the marriage is ending. How people respond to this fact determines the type of divorce and future they will have. They can come from a position of bitterness, revenge or helplessness or they can negotiate for their future from a position of strength, understanding and respect.. The attitude you choose will determine the type of divorce you have. Your options are as follows: You can make Agreements that:<br><br>1.Protect your rights only	or	Respect your spouse's rights too<br>2.Are only good for you	or	Are good for everyone<br>3.Give your spouse less	or	Give your spouse what is rightfully theirs<br>4.Do not inconvenience you	or	Work well for everyone<br>5.Need frequent court hearings to enforce	or	Need no court hearings to enforce"
+  ];
+
+    //To record the question progress, controL 'detail' button and 'continue' after NO
+  var counter = 0;
+
+    $(document).ready(function() {
+      var x = document.getElementById("intro");
+
+      x.classList.remove("hidden");
+      x.classList.add("visible");
+    });
+
+
+   var iBase = {
+    Id: function(name){
+     return document.getElementById(name);
+    },
+
+    SetOpacity: function(ev, v){
+     ev.filters ? ev.style.filter = 'alpha(opacity=' + v + ')' : ev.style.opacity = v / 100;
+    }
+   }
+
+   function fadeIn(elem, speed, opacity){
+
+    opacityopacity = opacity || 100;
+
+    elem.style.display = 'block';
+    iBase.SetOpacity(elem, 0);
+
+    var val = 0;
+
+    (function(){
+     iBase.SetOpacity(elem, val);
+     val += 5;
+     if (val <= opacity) {
+      setTimeout(arguments.callee, speed)
+     }
+    })();
+  }
+
+  //jump from intro to questions
+  function Q1() {
+    var x = document.getElementById("Quest"); // Question div
+    var y = document.getElementById("intro"); // intro
+      if (y.style.display != "none") {
+            y.style.display = "none";
+      }
+      if (x.style.display === "none")
+      x.classList.remove("hidden");
+      x.style.display = 'block';
+      fadeIn(x, 20, 100);
+  }
+
+    function next_q() {
+      var x = document.getElementById("Quest"); // Question div
+      var z = document.getElementById("Details");
+      var y = document.getElementById("content"); // Question content
+      var d = document.getElementById("D_button");
+      var n = document.getElementById("No_Answers");
+        if (counter === 0){
+          if (x.style.display != "none") {
+            x.style.display = "none";}
+      if (n.style.display === "none") {
+          // x.style.display = "block";
+          n.style.cssText=null;
+          n.classList.remove("hidden");
+      //     x.classList.add("visible");
+      //    // appear_Q1();
+           fadeIn(n, 20, 100);
+        }
+        }
+       else{
+        if (counter < 7 && counter > 0){
+        if (x.style.display != "none") {
+              z.style.display = "none";
+              x.style.display = "none";}
+        if (d.style.visibility === "hidden") {
+            d.style.visibility = "visible";}
+        if (x.style.display === "none")
+        x.classList.remove("hidden");
+        x.style.display = 'block';
+        counter++;
+        y.innerHTML = Questions[counter];
+        fadeIn(x, 20, 100);
+        }
+        else {
+        time_to_divorce();
+        }}
+
+  }
+
+    // jump to details
+    function Detail() {
+      var x = document.getElementById("Details");
+      var y = document.getElementById("D_button");
+      if (y.style.visibility != "hidden") {
+            y.style.visibility = "hidden";}
+      if (x.style.display === "none") {
+          // x.style.display = "block";
+          x.style.display="block";
+      //     x.classList.add("visible");
+          x.innerHTML = Details[counter];
+      //    // appear_Q1();
+           fadeIn(x, 20, 100);
+        }
+    }
+
+
+    //jump to div id 'No_Answers'
+    function No() {
+      var n = document.getElementById("No_Answers");
+      var x = document.getElementById("Quest");
+      var z = document.getElementById("Details");
+      var y = document.getElementById("content"); // Question content
+      var d = document.getElementById("D_button");
+      if (counter === 0) {
+        if (x.style.display != "none") {
+              z.style.display = "none";
+              x.style.display = "none";}
+        if (d.style.visibility === "hidden") {
+            d.style.visibility = "visible";}
+        if (x.style.display === "none")
+        x.classList.remove("hidden");
+        x.style.display = 'block';
+        counter++;
+        y.innerHTML = Questions[counter];
+        fadeIn(x, 20, 100);}
+      else{
+      if (x.style.display != "none") {
+            x.style.display = "none";}
+      if (n.style.display === "none") {
+          // x.style.display = "block";
+          n.style.cssText=null;
+          n.classList.remove("hidden");
+      //     x.classList.add("visible");
+      //    // appear_Q1();
+           fadeIn(n, 20, 100);
+        }}
+
+      }
+
+    //continue back to question after 'No'
+    function Continue() {
+      var x = document.getElementById("Quest");
+      var y = document.getElementById("No_Answers");
+      if (y.style.display != "none") {
+            y.style.display = "none";}
+      if (x.style.display === "none") {
+          // x.style.display = "block";
+          x.style.cssText=null;
+          x.classList.remove("hidden");
+      //     x.classList.add("visible");
+      //    // appear_Q1();
+           fadeIn(x, 20, 100);
+        }
+      }
+
+      // jump to divorce chatbot
+      function time_to_divorce() {
+            window.location.href="{{url_for('backToHome')}}";
+      }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+{% endblock %}

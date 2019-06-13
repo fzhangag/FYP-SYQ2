@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300|Open+Sans:300|Oxygen|Material+Icons" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjG_JOKaYJ1wyRtBdLrAijXCgP8dxSqJo&libraries=places&callback=initMap&sensor=false&language=en"
+        async defer></script>
+    <script src="{{ url_for('static', filename="js/layui/layui.js") }}"></script>
+    <script src="{{ url_for('static', filename="js/map.js") }}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename="js/layui/css/layui.css") }}"  media="all">
+    <style>
+    body{
+      background: #ddd6f3;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #faaca8, #ddd6f3);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #faaca8, #ddd6f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .modal_color{
+      background: #0f0c29;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      font-family: Poppins-Regular, sans-serif;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .modal_header_color{
+      background-color: inherit;
+    }
+
+    .dropdown-toggle::after{
+        border: 0;
+        margin-left: 0;
+        vertical-align:0;
+    }
+    </style>
+    {% block header %}
+    {% endblock %}
+</head>
+
+<body onbeforeunload="checkLeave1()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;">
+    <a class="navbar-brand" href="{{url_for('backToHome')}}">Law Chatbot</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" id="Home">
+          <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item" id="contact" >
+          <a class="nav-link" href="{{url_for('contact')}}">Contact Us</a>
+        </li>
+        <li class="nav-item" id="contact" >
+          <a class="nav-link" href="{{url_for('faq')}}">FAQ</a>
+        </li>
+            {% if current_user.get_id()!=None %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" href="{{url_for('get_employment', userid=current_user.get_id())}}">Employment</a>
+                    <a class="nav-link" href="{{url_for('get_divorce', userid=current_user.get_id())}}">Divorce</a>
+                  </div>
+                </li>
+
+        {% else %}
+            <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                    Download
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" href="{{url_for('get_employ_guest', username=request.remote_addr)}}">Employment</a>
+                    <a class="nav-link" href="{{url_for('get_divorce_guest', username=request.remote_addr)}}">Divorce</a>
+                  </div>
+            </li>
+        {% endif %}
+      </ul>
+        <ul class="navbar-nav">
+          {% if current_user.get_id()!=None %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{url_for('profile')}}">Profile</a>
+                <a class="dropdown-item" href="{{url_for('get_pdf', userid=current_user.get_id())}}">History Contracts</a>
+              </div>
+            </li>
+            <li id="login" class="nav-item navbar-right">
+                <a class="nav-link" href="{{url_for('logout')}}">Log Out</a>
+            </li>
+        {% else %}
+            <li id="login" class="nav-item navbar-right">
+                <a href="#" data-target="#login-modal" data-toggle="modal" role="button" class="nav-link">Log In</a>
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+  </nav>
+
+    <div class="modal fade" id="login-modal">
+      <div class="modal-dialog">
+        <div class="modal-content modal_color">
+          <div class="modal-header modal_header_color text-center">
+
+            <div id="div-forms">
+              <form action="{{url_for('log_in')}}" method="POST">
+
+                <div class="modal-body text-white">
+                     <input type="text" placeholder="Username" name="username" class="form-control" required>
+                     <input type="password" placeholder="Password" name="password" class="form-control" required>
+                     <div class="checkbox" name="rememberme">
+                       <label>
+                         <input type="checkbox">Remember me
+                       </label>
+                     </div>
+                </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button class="btn btn-primary" onclick="window.location.href='{{url_for('register')}}'">Sign up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<script type="text/javascript">
+  function checkLeave1(){
+     // 　event.returnValue="ready to go";
+　　　}
+//   function checkLeave2(){
+//      　event.returnValue="确定离开当前页面吗？";
+// 　　　}
+
+</script>
+
+    <footer>
+        {% block other_footers %}
+        {% endblock %}
+    </footer>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Law Chatbot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename="homepageStatic/css/main.css") }}">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="inner">
+					<h1>Law Chatbot</h1>
+					<p>A free law chatbot by <a href="http://www.ust.hk">HKUST students</a></p>
+				</div>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+					<section class="main items">
+						<article class="item">
+							<header>
+								<a onclick="decideGoal('divorce')">
+                                <img src={{url_for('static',filename="./Image/divorce.jpg")}} alt="" /></a>
+								<h3>Divorce</h3>
+							</header>
+							<p>Talk to the chatbot and generate a divorce agreement.</p>
+						</article>
+						<article class="item">
+							<header>
+								<a onclick="decideGoal('employment')">
+                                <img src={{url_for('static',filename="./Image/employment.jpg")}} alt="" /></a>
+								<h3>Employment</h3>
+							</header>
+							<p>Talk to the chatbot and generate an offer letter</p>
+						</article>
+						<article class="item">
+							<header>
+								<a onclick="decideGoal('not')">
+                                <img src={{url_for('static',filename="./Image/chatbot.jpg")}} alt="" /></a>
+								<h3>Not decide yet</h3>
+							</header>
+							<p>If you have not decided yet, you can talk to the chatbot directly.</p>
+						</article>
+						<article class="item">
+							<header>
+								<a href="#"><img src={{url_for('static',filename="./Image/coming_soon.png")}} alt="" /></a>
+								<h3>Coming Soon</h3>
+							</header>
+							<p>New functions are still under development, will be coming soon.</p>
+						</article>
+					</section>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">&copy; SYQ2 Lawchatbot. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="#">abcd</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+      <script src="{{ url_for('static', filename="homepageStatic/js/query.min.js") }}"></script>
+      <script src="{{ url_for('static', filename="homepageStatic/js/skel.min.js") }}"></script>
+      <script src="{{ url_for('static', filename="homepageStatic/js/util.js") }}"></script>
+      <script src="{{ url_for('static', filename="homepageStatic/js/main.js") }}"></script>
+			<script>
+			        function decideGoal(decided_goal){
+			            $.post("/decideGoal",
+			                {
+			                goal:decided_goal
+			                },
+			                function(jsondata){
+			                    data=jsondata['returnMSG'];
+			                    if(data=="home"){
+			                        window.location.href="{{url_for('backToHome')}}";
+			                    }
+			                    else{
+			                        window.location.href="{{url_for('humanistic_care')}}";
+			                    }
+			                });
+			        }
+			</script>
+	</body>
+</html>

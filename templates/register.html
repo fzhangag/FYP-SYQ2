@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block header %}
+{#<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/sign_up.css") }}">#}
+    <style>
+          #map {
+        height: 100%;
+        z-index: 10000000000 !important;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+        .pac-container {
+        z-index: 10000000000 !important;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="register_info"  style="margin:5% auto;height:700px; background-color:white; opacity: 0.9">
+    <div style="width:60%; margin:0 auto; padding-top: 5%">
+        <form class="layui-form layui-form-pane" method="POST" action="{{url_for('register')}}">
+      <div class="layui-form-item">
+        <label class="layui-form-label">User Name</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" required  lay-verify="required" placeholder="Eneter an user name" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Name</label>
+        <div class="layui-input-block">
+          <input type="text" id="name" name="name" required  lay-verify="required" placeholder="Your name used in ID" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Password</label>
+        <div class="layui-input-inline">
+          <input type="password" id="password1" name="password1" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux"> 6-16 characters for your password</div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Confirm</label>
+        <div class="layui-input-inline">
+          <input type="password" id="password2" name="password2" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">Re-enter to confirm your password</div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Gender</label>
+        <div class="layui-input-block">
+          <input type="radio" lay-filter="gender" name="gender" value="0" title="Female">
+          <input type="radio" lay-filter="gender" name="gender" value="1" title="Male">
+          <input type="radio" lay-filter="gender" name="gender" value="2" title="Other">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Birth </label>
+        <div class="layui-input-block">
+          <input type="text" name="birth" id="birth" required  lay-verify="required" placeholder="Your date of birth" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">Mobile No. </label>
+        <div class="layui-input-block">
+           <input type="text" name="phonenumber"  id="phonenumber" required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+       <div class="layui-form-item">
+        <label class="layui-form-label">Address </label>
+        <div class="layui-input-block">
+          <input type="text" name="address" id="pac-input" required  lay-verify="required" placeholder="Enter your location" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+        <div id="map"></div>
+
+
+
+         <div class="layui-btn-group"  style="width:100%; padding: 10% 0 20px">
+             <button class="layui-btn" type="reset" style="width:50%;">Reset</button>
+             <button class="layui-btn" type="submit"style="width:50%;" >Submit</button>
+         </div>
+    </form>
+    </div>
+
+</div>
+
+<script>
+
+layui.use(['form','laydate'], function(){
+  var form = layui.form;
+  var laydate=layui.laydate;
+  initMap();
+  laydate.render({elem: '#birth',lang: 'en'});
+  form.on('submit(submit_register_form)', function(data){
+    layer.msg(JSON.stringify(data.field));
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,434 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/profilecss.css") }}">
+    <style>
+     #map {
+        height: 100%;
+        z-index: 10000000000 !important;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+        .pac-container {
+        z-index: 10000000000 !important;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+       .my-skin .layui-layer-btn a {
+        width:40%;
+        background-color: #009688;
+        border: 1px solid #009688;
+        color: #fffadd;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container emp-profile">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h1 class="name">NGAI CHING PANG</h1>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="profile-work">
+                            <input type="submit" class="profile-edit-btn" id="editbtn" name="btnAddMore" value="Edit Profile"/>
+                        </div>
+                        <div class="profile-work">
+                            <input type="submit" class="profile-edit-btn" id="changepwd" name="btnAddMore" value="Change Password"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User ID</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="userid">Hello Python</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="username">Python Here</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="gender">Male</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date of Birth</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="birth">2019-02-18</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Mobile No.</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="mobile">2338 2338</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Address</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="address">xxxx xxxx xxxx xxxx</p>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+});
+</script>
+
+    <script>
+    $(function(){
+            var data;
+            $.post("/getUserData",
+            {
+                text:"",
+            },
+            function(jsondata){
+                data=jsondata['returnMSG'];
+                setContent(data,'show');
+            });
+
+            layui.use(['form','layer','laydate'], function(){   // start of layui
+              var form = layui.form;
+              var laydate= layui.laydate;
+              var layer=layui.layer;
+
+
+            $('#editbtn').click(function () {        //display and set default value of edit panel
+                if($('.edit_info').length>0)
+                    $('.edit_info')[0].remove();
+
+                layer.open({
+                  title:['Edit Profile','text-align: center'],
+                  type: 1,
+                  move: false,
+                  skin: 'my-skin',
+                  closeBtn: 0,
+                  shade: [0.8, '#F0F0F0'],
+                  content: getContent('profile'),
+                  anim: 5,
+                  btn:['Submit','Cancel'],
+                  btnAlign:'c',
+                  yes:function(index,layero){
+                      $('.submit_form').click();
+                  },
+                  area: screen() < 2 ? ['90%', '70%'] : ['50%','80%'],
+                  success: function (index, layero) {
+                    setContent(data,'edit');
+                    laydate.render({elem: '#edit_birth',lang: 'en'});
+                    initMap();
+                    form.render();
+                  }
+              });
+            });
+
+            $('#changepwd').click(function (e) {
+                if($('.edit_pwd').length>0)
+                    $('.edit_pwd')[0].remove();
+                layer.open({
+                  title:['Change Password','text-align: center'],
+                  type: 1,
+                  move: false,
+                  skin: 'my-skin',
+                  closeBtn: 0,
+                  shade: [0.8, '#F0F0F0'],
+                  content: getContent('pwd'),
+                  anim: 5,
+                  btn:['Submit','Cancel'],
+                  btnAlign:'c',
+                  yes:function(index,layero){
+                      $.post(
+                         "/changepwd",
+                        {
+                            oldpwd:$("#oldpwd").val(),
+                            newpwd:$("#newpwd").val(),
+                            confirmpwd:$("#confirmpwd").val()
+                        },
+                        function(jsondata){
+                            var tagName=[];
+                            var func={
+                                "Same_pwd":function(){
+                                    tagName=["oldpwd","newpwd","confirmpwd"];
+                                },
+                                "Re_confirm":function(){
+                                    tagName=["newpwd","confirmpwd"];
+                                },
+                                "Wrong_pwd":function(){
+                                    tagName=["oldpwd"];
+                                },
+                                "Success":function(){
+                                    layer.close(index);
+                                }
+                            };
+                            valid=jsondata["validation"];
+                            func[valid].call(this);
+                            setColor(["oldpwd","newpwd","confirmpwd"],'#ecfffd');
+                            setColor(tagName,'#ff8f85');
+                            $(".warning_msg").html(jsondata["res"]);
+                        });
+
+                  },
+                  area: screen() < 2 ? ['90%', '70%'] : ['50%','360px'],
+                  success: function (index, layero) {
+                    setColor(["oldpwd","newpwd","confirmpwd"],'#ecfffd');
+                    form.render();
+                  }
+              });
+            });
+
+            });     // end of layui
+    });
+
+    function setColor(ele,color){
+        for(var key in ele){
+            var ele_name=ele[key];
+            $("input[name="+ele_name+"]").css('background-color',color);
+        }
+    }
+
+    function setContent(className,type){
+        var gender={'0':"Female",'1':"Male",'2':"Other"};
+        var prefix=".edit_";
+        for(var key in className){
+         if(type=='show'){
+            if(key=="gender"){
+                document.getElementsByClassName(key)[0].innerHTML=gender[className[key]];
+                continue;
+            }
+            if(key=="userid"){
+                document.getElementsByClassName(key)[0].innerHTML=className[key];
+                continue;
+            }
+            document.getElementsByClassName(key)[0].innerHTML=className[key];
+
+         }else if(type=='edit'){
+            if(key=="gender"){
+                $("input[name=edit_gender][value="+className[key]+"]").prop("checked","true");
+                continue;
+            }
+            if(key=="userid"){
+                $(prefix+key).val(className[key]);
+                $("input[name=edit_userid]").prop("readonly","true");
+                continue;
+            }
+            $(prefix+key).val(className[key]);
+         }
+        }
+    }
+
+    function screen() {
+	    var width = $(window).width();
+	    if (width >=1200) {
+	        return 3;   //L
+	    } else if (width >=992) {
+	        return 2;   //M
+	    } else if (width >=768) {
+	        return 1;   //S
+	    } else {
+	        return 0;   //XS
+	    }
+    }
+
+    function getContent(type){
+        var str='';
+        if(type=='profile'){
+            str+=
+                '<div class="edit_info"  style="margin: 5% auto; width:80%">\n'+
+                '<form class="layui-form layui-form-pane" method="POST" action="{{url_for("updateProfile")}}">\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">User ID</label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '        <input type="text" name="edit_userid" required  lay-verify="required" value="" autocomplete="off" class="layui-input edit_userid">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">User Name</label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '      <input type="text" name="edit_username" required  lay-verify="required" value="" autocomplete="off" class="layui-input edit_username">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">Name</label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '      <input type="text" name="edit_name" required  lay-verify="required" value="" autocomplete="off" class="layui-input edit_name">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">Gender</label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '      <input type="radio" lay-filter="edit_gender" name="edit_gender" value="0" title="Female">\n'+
+                '      <input type="radio" lay-filter="edit_gender" name="edit_gender" value="1" title="Male">\n'+
+                '      <input type="radio" lay-filter="edit_gender" name="edit_gender" value="2" title="Other">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">Birth </label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '       <input type="text" name="edit_birth"  id="edit_birth" required  lay-verify="required" placeholder="Please choose a date" autocomplete="off" class="layui-input edit_birth">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label">Mobile No. </label>\n'+
+                '    <div class="layui-input-block">\n'+
+                '       <input type="text" name="edit_mobile"  id="edit_birth" required  lay-verify="required" autocomplete="off" class="layui-input edit_mobile">\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item">\n'+
+                '    <label class="layui-form-label"> Address</label>\n'+
+                '    <div class="layui-input-block" >\n'+
+                '       <input type="text" name="edit_address" id="pac-input" required  lay-verify="required" placeholder="Enter your location" autocomplete="off" class="layui-input edit_address">\n' +
+                '       <div id="map"></div>\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '  <div class="layui-form-item" style="display:none">\n'+
+                '    <div class="layui-input-block">\n'+
+                '      <button class="layui-btn submit_form" lay-submit lay-filter="form_submit">Submit</button>\n'+
+                '    </div>\n'+
+                '  </div>\n'+
+                '</form>\n'+
+                '</div>';
+        }else if(type=='pwd'){
+            str+=
+                '<div class="edit_pwd"  style="margin: 5% auto; width:80%">\n'+
+                ' <form class="layui-form layui-form-pane" action="">\n'+
+                '     <div class="layui-form-item">\n'+
+                '        <label class="layui-form-label" style="width:130px">Old Password</label>\n'+
+                '        <div class="layui-input-block" style="margin-left:130px">\n'+
+                '          <input type="password" id="oldpwd" name="oldpwd" required lay-verify="required"  autocomplete="off" class="layui-input">\n' +
+                '        </div>\n'+
+                '      </div>\n'+
+                '     <div class="layui-form-item">\n'+
+                '        <label class="layui-form-label" style="width:130px">New Password</label>\n'+
+                '        <div class="layui-input-block" style="margin-left:130px">\n'+
+                '          <input type="password" id="newpwd" name="newpwd" required lay-verify="required" autocomplete="off" class="layui-input">\n'+
+                '        </div>\n'+
+                '      </div>\n'+
+                '      <div class="layui-form-item">\n'+
+                '        <label class="layui-form-label" style="width:130px">Re-Confirm</label>\n'+
+                '        <div class="layui-input-block" style="margin-left:130px">\n'+
+                '          <input type="password" id="confirmpwd" name="confirmpwd" required lay-verify="required" autocomplete="off" class="layui-input">\n'+
+                '        </div>\n'+
+                '      </div>\n'+
+                '<h4 class="warning_msg" style="alignment: center; color:#ff8f85"></h4>\n'+
+                '</form>\n'+
+                '</div>';
+        }
+        return str;
+    }
+    </script>
+
+{% endblock %}

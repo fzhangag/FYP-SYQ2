@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ url_for('static', filename="FAQstatic/css/reset.css") }}"> <!-- CSS reset -->
+	<link rel="stylesheet" href="{{url_for('static', filename="FAQstatic/css/style.css") }}"> <!-- Resource style -->
+	<script src="{{ url_for('static', filename="FAQstatic/js/modernizr.js") }}"></script> <!-- Modernizr -->
+
+	<title>FAQ</title>
+    <style>
+        a {
+            color:#AA73E5;
+        }
+        .cd-faq-trigger::before, .cd-faq-trigger::after{
+            background: #AA73E5;
+        }
+        .cd-faq-categories a::before{
+            background-color: #AA73E5;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="cd-faq">
+	<ul class="cd-faq-categories">
+		<li><a class="selected" href="#chatbot">Chatbot</a></li>
+		<li><a href="#divorce">Divorce Contract</a></li>
+		<li><a href="#employment">Employment Offer letter</a></li>
+	</ul> <!-- cd-faq-categories -->
+
+	<div class="cd-faq-items">
+		<ul id="chatbot" class="cd-faq-group">
+			<li class="cd-faq-title"><h2>Chatbot</h2></li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">How do I change my password?</a>
+				<div class="cd-faq-content">
+					<p>Go to Account->Profile, and click change password. Input your old password and the new one, we will check with your existed old password and change your password into the new one.</p>
+				</div>
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">How do I sign up?</a>
+				<div class="cd-faq-content">
+					<p>Press Log in, and then press the sign up button, enter your personal information and create your account. Don't worry that your personal information will be kept secure in our server which will not be revealed.</p>
+				</div>
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">How can I enter the chatbot?</a>
+				<div class="cd-faq-content">
+					<p>There will be serval functions of buttons on our website that you can choose one to enter. Choose "Employment" to generate an employment offer letter generator, "Divorce" to generate a divorce contract template, and choose "Decise later" to talk with our chatbot and enter a specific field.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">How often do we clear the data?</a>
+				<div class="cd-faq-content">
+					<p>We will check our database twice a day and if the duration between a user's last modify time and now is longer than 12 hours, we will clean the data. For the guest user, we will delete the data for him/her, and for our registered user, we will just clear the unfinished conversation information but not need to register again.</p>
+					</br>
+					</br>
+					<p>If you close the windows or refresh the website, your data will be clear and you need to do it again! So be careful about that.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">How can I find my history generated contracts?</a>
+				<div class="cd-faq-content">
+					<p>If you are our registered user, you can enter account->porfile and find your history contract here. This function is not available for the guest user, so just sign up!</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">How can I modify my contract?</a>
+				<div class="cd-faq-content">
+					<p>You can modify some parts of the contract before finish the contract by following our instruction. However, it is impossible for you to modify the contract if you finally complete it and also for some specific parts. So please input it accurate, and if you still want some to change, please try it again.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+		</ul>
+
+		<ul id="divorce" class="cd-faq-group">
+			<li class="cd-faq-title"><h2>Divorce Contract</h2></li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">Apart from going to Court to apply for a divorce, are there any other channels through which a married couple can deal with their unhappy or broken marriage? What are the differences between those other channels and divorce proceedings?</a>
+				<div class="cd-faq-content">
+					<p>The alternatives to divorce proceedings available to parties to an unhappy or broken marriage are as follows:</p>
+					<br>
+					<br>
+					<b>Deed of Separation</b>
+					<br>
+					<br>
+					<p>Deed of Separation is a separation agreement made between the two parties by themselves. The agreement may specify a period of separation, and what the parties may do with their children (if any) and how their children’s and each other’s maintenance will be provided.</p>
+					<br>
+					<br>
+					<b>Separation Order</b>
+					<br><br>
+					<p>If no separation agreement can be reached, one party can apply to the District Court for a separation order together with maintenance orders (e.g. either party may be ordered by the Court to give financial support to the other party, and/or the children, for the costs of living) provided that he or she has not committed adultery. If the Court order that the parties be separated, they need not live together any more although they are still legally husband and wife (they are not free to re-marry at this stage). The Court may also make orders relating to the custody of the children and the maintenance of the other spouse and of the children.</p>
+					<br><br>
+					<b>Judicial Separation</b>
+					<p>The effect of a judicial separation is the same as a separation order, i.e. the parties are still husband and wife but they need not cohabit. Parties who are judicially separated are not free to re-marry. The decree of judicial separation is only granted subject to the requirement that satisfactory arrangements have been made for the welfare of any children. </p>
+					<br><br>
+					<b>Mediation</b>
+					<br><br>
+					<p>Family mediation is a voluntary problem-solving process designed to help separating/divorcing couples reach their own mutually acceptable agreements regarding on-going arrangements for their children and/or the resolution of financial matters. A trained, impartial third person (the mediator) can assist both parties to communicate and negotiate issues in a confidential setting.</p>
+					<br>
+					<p>To know more about the above alternatives, please visit <a href="http://familyclic.hk/en/topics/Matrimonial-matters/Divorce/Resolution-methods-other-than-divorce/">Resolution methods other than divorce</a>. </p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">How do I upload files from my phone or tablet?</a>
+				<div class="cd-faq-content">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempore, placeat quisquam rerum! Eligendi fugit dolorum tenetur modi fuga nisi rerum, autem officiis quaerat quos. Magni quia, quo quibusdam odio. Error magni aperiam amet architecto adipisci aspernatur! Officia, quaerat magni architecto nostrum magnam fuga nihil, ipsum laboriosam similique voluptatibus facilis nobis? Eius non asperiores, nesciunt suscipit veniam blanditiis veritatis provident possimus iusto voluptas, eveniet architecto quidem quos molestias, aperiam eum reprehenderit dolores ad deserunt eos amet. Vero molestiae commodi unde dolor dicta maxime alias, velit, nesciunt cum dolorem, ipsam soluta sint suscipit maiores mollitia assumenda ducimus aperiam neque enim! Quas culpa dolorum ipsam? Ipsum voluptatibus numquam natus? Eligendi explicabo eos, perferendis voluptatibus hic sed ipsam rerum maiores officia! Beatae, molestias!</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">What can I do if I cannot afford to retain a lawyer to represent me in divorce or matrimonial proceedings?</a>
+				<div class="cd-faq-content">
+					<p>You may seek legal advice and/or legal representation from the relevant bodies.In seeking legal advice, you may approach the Free Legal Advice Scheme administered by the Duty Lawyer Service (Tel. 2835 2500).In seeking legal representation in court, you may try to apply to the Legal Aid Scheme administered by the Legal Aid Department (Tel: 2537 7677), or to the Bar Free Legal Service Scheme administered by the Hong Kong Bar Association (E-mail: bflss@hkba.org).Please also note that while the staff of the Family Court Registry will give information relating to divorce procedures, they are not lawyers and they are not permitted to offer legal advice.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">What are the factors considered by the Court in awarding custody of a child in family proceedings?</a>
+				<div class="cd-faq-content">
+					<p>In all matters relating to children in family proceedings, the welfare of the child is the first and paramount consideration for the Court.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">Can one parent take a child out of Hong Kong by way of a custody order?</a>
+				<div class="cd-faq-content">
+					<p>Custody orders may contain directions relating to the removal of a child from Hong Kong in the following ways:</p>
+					<br><br>
+					<b>Prohibition on removal from Hong Kong</b>
+					<br><br>
+					<p>Custody orders can be endorsed with a notice in the form of a direction that neither parent is entitled to remove the child from Hong Kong unless the following conditions are met:</p>
+					<br>
+					<p>(1).obtain the approval of the Court;Or</p>
+					<p>(2).obtain the written consent of the other parent who is not responsible for taking the child out of Hong Kong, AND the giving of a general undertaking by the parent (who will take the child out of Hong Kong) to the Court to return the child to Hong Kong after any fixed period spent abroad or at the end of any agreed period, or earlier if called upon to do so by the Court.</p>
+					<br><br>
+					<b>Removal from Hong Kong during holidays</b>
+					<br><br>
+					<p>Upon the making of a custody order with the aforesaid restrictions specified on it, it is possible to file with the Court a general undertaking to return the child after any holiday period spent abroad. This means that when you want to take the child out of Hong Kong, all a party needs to do is to obtain a written consent from his/her spouse.</p>
+					<br><br>
+					<b>Permanent removal from Hong KongM</b>
+					<br><br>
+					<p>If a parent, who is granted with the custody of a child, intends to leave Hong Kong permanently for some reasons, that parent must make an application to Court so as to obtain an order from the Court allowing him or her to remove the child permanently from Hong Kong. If the other parent opposes such application, the judge will have to balance the child's loss of regular contact with that parent against the liberty of the applicant parent (granted with custody) to choose where he or she wishes to live.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+		</ul> <!-- cd-faq-group -->
+
+		<ul id="employment" class="cd-faq-group">
+			<li class="cd-faq-title"><h2>Employment Offer letter</h2></li>
+			<li>
+				<a class="cd-faq-trigger" href="#0">what is a contract of employment?</a>
+				<div class="cd-faq-content">
+					<p>A contract of employment is an agreement on the employment conditions made between an employer and an employee. The agreement can be made orally or in writing and it includes both express and implied terms.<br><br>
+							As stipulated by the Employment Ordinance, an employer must inform each employee clearly the conditions of employment under which he is to be employed before employment begins with regard to:<br><br>
+
+							　( 1 )	wages (including rate of wages, overtime rate and any allowance, whether calculated by the piece, job, hour, day, week or otherwise);<br>
+							　( 2 )	wage period;<br>
+							　( 3 )	length of notice required to terminate the contract; and<br>
+							　( 4 )	if the employee is entitled to an end of year payment, the end of year payment or proportion and the payment period.<br>
+							</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">Who is covered by the Employment Ordinance? What about temporary or part-time employees?</a>
+				<div class="cd-faq-content">
+					<p>The Employment Ordinance covers all employees, whether temporary or part-time, with the following exceptions: <br><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(a)	a family member who lives in the same dwelling as the employer;<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(c)	a person serving under a crew agreement under the Merchant Shipping (Seafarers) Ordinance, or on board a ship which is not registered in Hong Kong; and <br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(d)	an apprentice whose contract of apprenticeship has been registered under the Apprenticeship Ordinance, other than certain provisions of the Employment Ordinance. <br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(b)	an employee as defined in the Contracts for Employment Outside Hong Kong Ordinance;<br><br>
+
+							All employees, irrespective of the number of hours they work in each week, are entitled to: <br><br>
+
+							&nbsp;&nbsp;&nbsp;&nbsp;(a)	statutory holidays;<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(b)	wage protection; and<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;(c)	protection against anti-union discrimination.<br><br>
+							Employees employed under a continuous contract, whether temporary or part-time, are entitled to ALL the statutory benefits under the Employment Ordinance subject to satisfaction of the conditions stipulated therein.</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">What will be the consequences if an employer fails to pay wages on time?</a>
+				<div class="cd-faq-content">
+					<p>An employer should pay wages to an employee when they become due and not later than 7 days from the end of the wage period.
+						<br><br>
+						An employer who fails to pay wages to an employee within 7 days after they become due is liable to prosecution and, upon conviction, to a fine of HK$350,000 and to imprisonment for three years.
+						<br><br>
+						Where a wage offence committed by a body corporate is proved to have been committed with the consent or connivance of, or to be attributable to any neglect on the part of, any director, manager, secretary or other similar officer of the body corporate, such person shall be guilty of the like offence and, upon conviction, is liable to the same penalty.
+						<br><br>
+						If an employer fails to pay wages to the employee within 7 days from the day when the wages become due, he is required to pay interest on the outstanding amount of wages to the employee.
+						<br><br>
+						If wages are not paid within one month from the due date of payment, an employee may deem his contract of employment to have been terminated by his employer without notice. Under such circumstances, the employer is required to pay payment in lieu of notice in addition to other statutory and contractual benefits to the employee.
+					</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">Should commission, good attendance bonus, travelling allowance be included in calculating end of year payment, maternity leave pay, paternity leave pay, severance payment, long service payment, sickness allowance, holiday pay, annual leave pay and payment in lieu of notice?</a>
+				<div class="cd-faq-content">
+					<p>Commission, good attendance bonus and traveling allowance are included in the calculation of end of year payment, maternity leave pay, paternity leave pay, severance payment, long service payment, sickness allowance, holiday pay, annual leave pay and payment in lieu of notice.
+						<br><br>
+						 However, end of year payment can be the amount as specified in the employment contract. If the amount is not specified, it will be a sum equivalent to one-month average wages.
+					</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">Can an employer deduct his employee's wages for absence from work or damage to employer's goods or equipment ?</a>
+				<div class="cd-faq-content">
+					<p>Yes, but subject to restrictions. For absence from work, the employer can deduct a sum of wages which is proportionate to the period of time the employee is absent from work.
+						<br><br>
+						 If an employee damages or causes loss to the employer's goods or equipment, the employer can, in any one case, deduct a sum equivalent to the value of the damage or loss but not exceeding HK$300. The total of such deductions shall not exceed one quarter of the wages payable to the employee in that wage period.
+					</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">What is the coverage of Statutory Minimum Wage (SMW)?</a>
+				<div class="cd-faq-content">
+					<p>SMW applies to all employees, whether they are monthly-rated, weekly-rated, daily-rated, hourly-rated, piece-rated, permanent, casual, full-time, part-time or other employees, and regardless of whether or not they are employed under a continuous contract (Note 1) as defined in the Employment Ordinance, with the detailed exceptions:
+					<br><a href="https://www.labour.gov.hk/eng/faq/smw_converage.htm">https://www.labour.gov.hk/eng/faq/smw_converage.htm</a>
+					</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">What is the coverage of Statutory Minimum Wage (SMW)?Are employers obliged to take out employees' compensation insurance policies for all employees?</a>
+				<div class="cd-faq-content">
+					<p>According to section 40 of the Ordinance, no employer shall employ any employee in any employment unless there is in force a policy of insurance to cover their liabilities both under the Ordinance and at common law for injuries at work in respect of all their employees, irrespective of the length of employment contract or working hours, full-time or part-time employment. Should there be any queries on legal liability, employers should seek professional legal advice.
+						<br><br>
+						The minimum insurance cover should be for an amount:
+						<br><br>
+						not more than 200 emplyees,	amount of insurace cover: not less than $100 million<br>
+						more than 200 emplyees,	amount of insurace cover: not less than $200 million<br><br>
+						An employer who fails to comply with the Ordinance to secure an insurance cover commits an offence and is liable on conviction to a maximum fine of $100,000 and imprisonment for two years .
+						<br><br>
+						Moreover, under the Employees' Compensation Assistance Ordinance, Chapter 365 of the Laws of Hong Kong, an employer who fails to comply with the compulsory insurance requirement is liable to pay a surcharge to the Employees Compensation Assistance Fund Board.
+					</p>
+				</div> <!-- cd-faq-content -->
+			</li>
+
+			<li>
+				<a class="cd-faq-trigger" href="#0">What are the legislation on occupational safety and health administered by the Labour Department?</a>
+				<div class="cd-faq-content">
+					<p>You can browse the website at
+						<a href="https://www.elegislation.gov.hk/">https://www.elegislation.gov.hk/</a> for contents of the  Occupational Safety and Health Ordinance, Chapter 509, the Factories and Industrial Undertakings Ordinance, Chapter 59, the Boilers and Pressure Vessels Ordinance (Chapter 56) and their subsidiary regulations.<br><br>
+
+						These are the main legislation on occupational safety and health administered by the Labour Department. Requirements for ensuring the safety and health of employees at work are laid down in the ordinances and their subsidiary regulations.
+				</div> <!-- cd-faq-content -->
+			</li>
+		</ul> <!-- cd-faq-group -->
+
+		
+	</div> <!-- cd-faq-items -->
+	<a href="#0" class="cd-close-panel">Close</a>
+</section> <!-- cd-faq -->
+
+{% endblock %}
+
+{% block other_footers %}
+    <script src="{{ url_for('static', filename="FAQstatic/js/jquery-2.1.1.js") }}"></script>
+    <script src="{{ url_for('static', filename="FAQstatic/js/query.mobile.custom.min.js") }}"></script>
+    <script src="{{ url_for('static', filename="FAQstatic/js/main.js") }}"></script> <!-- Resource jQuery -->
+{% endblock %}
